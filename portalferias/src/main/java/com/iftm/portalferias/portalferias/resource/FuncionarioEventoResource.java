@@ -25,7 +25,7 @@ import com.iftm.portalferias.portalferias.service.FuncionarioEventoService;
 
 
 @RestController
-@RequestMapping("/funcionarioEvento")
+@RequestMapping("/funcionarioevento")
 public class FuncionarioEventoResource {
 
 	@Autowired

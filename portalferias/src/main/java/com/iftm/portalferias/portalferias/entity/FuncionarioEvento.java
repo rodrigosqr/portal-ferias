@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -20,28 +19,27 @@ public class FuncionarioEvento implements Serializable {
 	private static final long serialVersionUID = 201806280241L;
 	@Id
 	@GeneratedValue
-	@Column(name = "cod_FuncionarioEvento", nullable = false)
+	@Column(name = "cod_funcionarioevento", nullable = false)
 	private Long id;
 
-	@Column(name = "dt_InicioEvento", nullable = true)
+	@Column(name = "dt_inicioevento", nullable = true)
 	@NotNull(message = "Data de inicio do evento é obrigatório.")
 	private LocalDate dataInicioEvento;
 
-	@Column(name = "dt_FinalEvento", nullable = true)
+	@Column(name = "dt_finalevento", nullable = true)
 	@NotNull(message = "Data de final do evento é obrigatório.")
 	private LocalDate dataFinalEvento;
 
-	@Column(name = "des_observacao", length = 1, nullable = true)
-	@Max(value = 400, message = "O tamanho máximo da observação é de 400 caracteres")
+	@Column(name = "des_observacao", nullable = true)
 	private String observacao;
 
 	@ManyToOne
-	@JoinColumn(name = "cod_Funcionario", referencedColumnName = "cod_Funcionario")
+	@JoinColumn(name = "cod_funcionario", referencedColumnName = "cod_Funcionario")
 	@NotNull(message = "Funcinário é obrigatório.")
 	private Funcionario funcionario;
 
 	@ManyToOne
-	@JoinColumn(name = "cod_Evento", referencedColumnName = "cod_Evento")
+	@JoinColumn(name = "cod_evento", referencedColumnName = "cod_Evento")
 	@NotNull(message = "Evento é obrigatório.")
 	private Evento evento;
 

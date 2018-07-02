@@ -25,11 +25,11 @@ public class Evento implements Serializable {
 	private Long id;
 	
 	@NotBlank(message = "Descrição é obrigatório.")
-	@Column(name = "des_Evento", unique = true, nullable = false)
+	@Column(name = "ds_Evento", unique = true, nullable = false)
 	private String descricao;
 
 	@NotBlank(message = "Tipo de evento é obrigatório.")
-	@Column(name = "tipoEvento", unique = true, nullable = false)
+	@Column(name = "tipoevento", unique = true, nullable = false)
 	private String tipoEvento;
 	
 	public Evento() {
