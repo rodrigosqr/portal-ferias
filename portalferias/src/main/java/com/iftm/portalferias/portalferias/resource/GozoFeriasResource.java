@@ -25,7 +25,7 @@ import com.iftm.portalferias.portalferias.service.GozoFeriasService;
 
 
 @RestController
-@RequestMapping("/gozoFerias")
+@RequestMapping("/gozoferias")
 public class GozoFeriasResource {
 
 	@Autowired

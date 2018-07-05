@@ -50,16 +50,16 @@ export default {
     }
   },
   methods: {
-    findFuncionariosEvento () {
-      this.$api.funcionarioEvento(this.$axios).findAll()
+    findAllFerias () {
+      this.$api.ferias(this.$axios).findAll()
         .then(response => {
           response.data.forEach(el => {
             el.name = el.id
             el.nome = el.funcionario.nome
-            el.dataInicioFormatado = moment(el.dataInicioEvento).format('DD/MM/YYYY')
-            el.dataFinalFormatado = moment(el.dataFinalEvento).format('DD/MM/YYYY')
-            el.dataInicioEvento = moment(el.dataInicioEvento).toDate()
-            el.dataFinalEvento = moment(el.dataFinalEvento).toDate()
+            el.dataInicioFormatado = moment(el.dataInicioAquisicao).format('DD/MM/YYYY')
+            el.dataFinalFormatado = moment(el.dataFinalAquisicao).format('DD/MM/YYYY')
+            el.dataInicioAquisicao = moment(el.dataInicioAquisicao).toDate()
+            el.dataFinalAquisicao = moment(el.dataFinalAquisicao).toDate()
           })
           this.tableData = response.data
         })
@@ -69,7 +69,7 @@ export default {
     }
   },
   mounted () {
-    this.findFuncionariosEvento()
+    this.findAllFerias()
   }
 }
 </script>

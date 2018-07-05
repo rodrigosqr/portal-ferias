@@ -3,36 +3,35 @@
     <div class="flex justify-end portalferias-btn">
       <q-btn
         color="primary"
-        @click="newEvento"
+        @click="newFerias"
         label="Novo" />
       <q-btn
         :disable="!oneSelected"
         color="positive"
-        @click="editEvento"
+        @click="editFerias"
         label="Editar" />
       <q-btn
         :disable="!manySelected"
         color="negative"
-        @click="deleteEvento"
+        @click="deleteFerias"
         label="Excluir" />
     </div>
 
-    <list-evento
+    <list-ferias
       ref="list"
       :selected="selected"/>
-    <create-evento
+    <create-ferias
       ref="modal"
       @reload="reload"/>
   </div>
 </template>
 <script>
-import CreateEvento from 'components/evento/CreateEvento'
-import ListEvento from 'components/evento/ListEvento'
-import LoadingMixin from 'common/mixins/loading.js'
+import CreateFerias from 'components/Ferias/CreateFerias'
+import ListFerias from 'components/Ferias/ListFerias'
 import errorMixin from 'common/mixins/error'
 
 export default {
-  mixins: [LoadingMixin, errorMixin],
+  mixins: [errorMixin],
   data () {
     return {
       selected: []
@@ -40,37 +39,33 @@ export default {
   },
 
   components: {
-    CreateEvento,
-    ListEvento
+    CreateFerias,
+    ListFerias
   },
 
   methods: {
-    newEvento () {
+    newFerias () {
       this.$refs.modal.addItem()
     },
-    editEvento () {
+    editFerias () {
       if (this.oneSelected) {
         this.$refs.modal.editItem(this.selected[0])
       }
     },
-    deleteEvento () {
+    deleteFerias () {
       if (this.manySelected) {
-        this.showLoading()
-        this.$api.evento(this.$axios).delete(this.selected[0].id)
+        this.$api.ferias(this.$axios).delete(this.selected[0].id)
           .then(() => {
             this.message.success('Deletado com sucesso')
             this.reload()
           })
           .catch((error) => {
-            this.treatError(error, ': Esse evento está sendo usado')
-          })
-          .finally(() => {
-            this.hideLoading()
+            this.treatError(error, ': Esse período aquisitivo está sendo usado')
           })
       }
     },
     reload () {
-      this.$refs.list.findEventos()
+      this.$refs.list.findAllFerias()
     }
   },
   computed: {

@@ -39,6 +39,11 @@ public class FeriasResource {
 		return entidadeBO.buscarTodos();
 	}
 	
+	@GetMapping(value="/funcionario/{id}")
+	public List<Ferias> listarPorFuncionario(@PathVariable Long id) {
+		return entidadeBO.buscarPorFuncionario(id);
+	}
+	
 	@PostMapping
 	public ResponseEntity<Ferias> salvar(@Valid @RequestBody Ferias entidade, HttpServletResponse response) {
 		Ferias entidadeSalvo = entidadeBO.salvar(entidade);

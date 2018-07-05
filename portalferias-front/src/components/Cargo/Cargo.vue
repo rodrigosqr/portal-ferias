@@ -29,9 +29,10 @@
 import CreateCargo from 'components/Cargo/CreateCargo'
 import ListCargo from 'components/Cargo/ListCargo'
 import LoadingMixin from 'common/mixins/loading.js'
+import errorMixin from 'common/mixins/error'
 
 export default {
-  mixins: [LoadingMixin],
+  mixins: [LoadingMixin, errorMixin],
   data () {
     return {
       selected: []
@@ -60,8 +61,8 @@ export default {
             this.message.success('Deletado com sucesso')
             this.reload()
           })
-          .catch(() => {
-            this.message.error('Erro ao deletar')
+          .catch((error) => {
+            this.treatError(error, ': Esse cargo está sendo usado')
           })
           .finally(() => {
             this.hideLoading()

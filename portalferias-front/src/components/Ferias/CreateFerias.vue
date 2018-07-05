@@ -6,8 +6,8 @@
     :minHeight="'50vh'"
     :minWidth="'95vw'">
 
-    <div class="row funcionario-evento-form">
-      <div class="col-md-6 col-sm-12 col-xs-12">
+    <div class="row ferias-form">
+      <div class="col-md-12 col-sm-12 col-xs-12">
         <q-select
           v-if="entidade.funcionario"
           v-model="entidade.funcionario.id"
@@ -22,25 +22,12 @@
       </div>
 
       <div class="col-md-6 col-sm-12 col-xs-12">
-        <q-select
-          v-if="entidade.evento"
-          v-model="entidade.evento.id"
-          :options="getEventos"
-          radio
-          :float-label="'Evento'"
-          name="evento"
-          v-validate="'required'"
-          :error="errors.has('evento')"
-          class="full-width form"/>
-      </div>
-
-      <div class="col-md-6 col-sm-12 col-xs-12">
         <q-datetime
-          v-model="entidade.dataInicioEvento"
-          :float-label="'Data inicial'"
-          name="dataInicioEvento"
+          v-model="entidade.dataInicioAquisicao"
+          :float-label="'Data inicial da aquisição'"
+          name="dataInicioAquisicao"
           v-validate="'required'"
-          :error="errors.has('dataInicioEvento')"
+          :error="errors.has('dataInicioAquisicao')"
           type="date"
           format="DD/MM/YYYY"
           class="full-width form"/>
@@ -48,22 +35,13 @@
 
       <div class="col-md-6 col-sm-12 col-xs-12">
         <q-datetime
-          v-model="entidade.dataFinalEvento"
-          :float-label="'Data final'"
-          name="dataFinalEvento"
+          v-model="entidade.dataFinalAquisicao"
+          :float-label="'Data final da aquisição'"
+          name="dataFinalAquisicao"
           v-validate="'required'"
-          :error="errors.has('dataFinalEvento')"
+          :error="errors.has('dataFinalAquisicao')"
           type="date"
           format="DD/MM/YYYY"
-          class="full-width form"/>
-      </div>
-
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <q-input
-          v-model="entidade.observacao"
-          :float-label="'Observação'"
-          maxlength="400"
-          type="textarea"
           class="full-width form"/>
       </div>
     </div>
@@ -82,26 +60,14 @@ export default {
   mixins: [registrationMixin],
   data () {
     return {
-      resources: this.$api.funcionarioEvento(this.$axios),
+      resources: this.$api.ferias(this.$axios),
       subObjects: {
-        evento: {},
         funcionario: {}
       },
-      funcionarios: [],
-      eventos: []
+      funcionarios: []
     }
   },
   methods: {
-    findEventos () {
-      this.$api.evento(this.$axios).findAll()
-        .then(response => {
-          this.eventos = response.data
-          this.eventos.unshift({ id: null, descricao: '' })
-        })
-        .catch(() => {
-          this.message.error('Não foi possível carregar os eventos.')
-        })
-    },
     findFuncionarios () {
       this.$api.funcionario(this.$axios).findAll()
         .then(response => {
@@ -121,11 +87,6 @@ export default {
     }
   },
   computed: {
-    getEventos () {
-      return this.eventos.map(el => {
-        return { label: el.descricao, value: el.id }
-      })
-    },
     getFuncionarios () {
       return this.funcionarios.map(el => {
         return { label: el.nome, value: el.id }
@@ -133,13 +94,12 @@ export default {
     }
   },
   created () {
-    this.findEventos()
     this.findFuncionarios()
   }
 }
 </script>
 <style scoped>
-  .funcionario-evento-form > div {
+  .ferias-form > div {
     padding-right: 8px;
   }
 

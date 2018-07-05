@@ -28,8 +28,10 @@
 <script>
 import CreateFuncionario from 'components/Funcionario/CreateFuncionario'
 import ListFuncionario from 'components/Funcionario/ListFuncionario'
+import errorMixin from 'common/mixins/error'
 
 export default {
+  mixins: [errorMixin],
   data () {
     return {
       selected: []
@@ -57,8 +59,8 @@ export default {
             this.message.success('Deletado com sucesso')
             this.reload()
           })
-          .catch(() => {
-            this.message.error('Erro ao deletar')
+          .catch((error) => {
+            this.treatError(error, ': Esse funcionário está sendo usado')
           })
       }
     },

@@ -34,6 +34,16 @@ export default [
             path: '/funcionarioevento',
             name: 'funcionarioEvento',
             component: () => import('components/FuncionarioEvento')
+          },
+          {
+            path: '/ferias',
+            name: 'ferias',
+            component: () => import('components/Ferias')
+          },
+          {
+            path: '/gozoferias',
+            name: 'gozoferias',
+            component: () => import('components/GozoFerias')
           }
         ]
       }

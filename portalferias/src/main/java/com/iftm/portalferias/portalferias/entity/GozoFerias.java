@@ -19,22 +19,22 @@ public class GozoFerias implements Serializable {
 	private static final long serialVersionUID = 201806280257L;
 	@Id
 	@GeneratedValue
-	@Column(name = "cod_GozoFerias", nullable = false)
+	@Column(name = "cod_gozoferias", nullable = false)
 	private Long id;
 
-	@Column(name = "dt_InicioGozo", nullable = false)
+	@Column(name = "dt_iniciogozo", nullable = false)
 	@NotNull(message = "Data início de gozo de férias é obrigatório.")
 	private LocalDate dataInicioGozo;
 
-	@Column(name = "dt_FinalGozo", nullable = false)
+	@Column(name = "dt_finalgozo", nullable = false)
 	@NotNull(message = "Data final de gozo de férias é obrigatório.")
 	private LocalDate dataFinalGozo;
 
-	@Column(name = "dt_PagamentoFerias", nullable = true)
+	@Column(name = "dt_pagamentoferias", nullable = true)
 	private LocalDate dataPagamentoFerias;
 
 	@ManyToOne
-	@JoinColumn(name = "cod_Ferias", referencedColumnName="cod_Ferias")
+	@JoinColumn(name = "cod_ferias", referencedColumnName="cod_Ferias")
 	@NotNull(message = "Férias é obrigatório.")
 	private Ferias ferias;
 

@@ -23,15 +23,15 @@ export default {
       tableData: [],
       columns: [
         {
-          name: 'nome',
+          name: 'aquisicao',
           required: true,
-          label: 'Funcionário',
+          label: 'Aquisição',
           align: 'left',
-          field: 'nome',
+          field: 'aquisicao',
           sortable: true
         },
         {
-          name: 'dataInicioEvento',
+          name: 'dataInicioFormatado',
           required: true,
           label: 'Data inicial',
           align: 'left',
@@ -39,7 +39,7 @@ export default {
           sortable: true
         },
         {
-          name: 'dataFinalEvento',
+          name: 'dataFinalFormatado',
           required: true,
           label: 'Data final',
           align: 'left',
@@ -50,16 +50,17 @@ export default {
     }
   },
   methods: {
-    findFuncionariosEvento () {
-      this.$api.funcionarioEvento(this.$axios).findAll()
+    findGozoFerias () {
+      this.$api.gozoFerias(this.$axios).findAll()
         .then(response => {
           response.data.forEach(el => {
             el.name = el.id
-            el.nome = el.funcionario.nome
-            el.dataInicioFormatado = moment(el.dataInicioEvento).format('DD/MM/YYYY')
-            el.dataFinalFormatado = moment(el.dataFinalEvento).format('DD/MM/YYYY')
-            el.dataInicioEvento = moment(el.dataInicioEvento).toDate()
-            el.dataFinalEvento = moment(el.dataFinalEvento).toDate()
+            el.aquisicao = `${moment(el.ferias.dataInicioAquisicao).format('DD/MM/YYYY')} - ${moment(el.ferias.dataFinalAquisicao).format('DD/MM/YYYY')}`
+            el.dataInicioFormatado = moment(el.dataInicioGozo).format('DD/MM/YYYY')
+            el.dataFinalFormatado = moment(el.dataFinalGozo).format('DD/MM/YYYY')
+            el.dataInicioGozo = moment(el.dataInicioGozo).toDate()
+            el.dataFinalGozo = moment(el.dataFinalGozo).toDate()
+            el.dataPagamentoFerias = moment(el.dataPagamentoFerias).toDate()
           })
           this.tableData = response.data
         })
@@ -69,7 +70,7 @@ export default {
     }
   },
   mounted () {
-    this.findFuncionariosEvento()
+    this.findGozoFerias()
   }
 }
 </script>

@@ -1,21 +1,25 @@
 import vanillaMasker from 'vanilla-masker'
 import moment from 'moment'
 import LoadingMixin from 'common/mixins/loading.js'
+import errorMixin from 'common/mixins/error'
 import { removePunctuation } from 'common/utils/regex-utils.js'
 
 export default {
-  mixins: [LoadingMixin],
+  mixins: [LoadingMixin, errorMixin],
   data () {
     return {
-      entidade: {}
+      entidade: {},
+      edit: false
     }
   },
   methods: {
     addItem () {
+      this.edit = false
       this.entidade = this.subObjects || {}
       this.openModal()
     },
     editItem (entidade) {
+      this.edit = true
       this.entidade = this.formatFields(entidade)
       this.entidade.cpf = this.entidade.cpf
       delete this.entidade.name
@@ -124,15 +128,6 @@ export default {
         }
       })
       return payload
-    },
-    treatError (error) {
-      const errors = error.response.data
-      if (errors && errors.constructor.name === 'Array') {
-        errors.forEach(el => {
-          this.message.error(el.mensagemUsuario)
-          throw Error(el.mensagemDesenvolvedor)
-        })
-      }
     }
   }
 }

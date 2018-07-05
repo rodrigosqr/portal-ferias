@@ -3,36 +3,33 @@
     <div class="flex justify-end portalferias-btn">
       <q-btn
         color="primary"
-        @click="newEvento"
+        @click="newGozoFerias"
         label="Novo" />
       <q-btn
         :disable="!oneSelected"
         color="positive"
-        @click="editEvento"
+        @click="editGozoFerias"
         label="Editar" />
       <q-btn
         :disable="!manySelected"
         color="negative"
-        @click="deleteEvento"
+        @click="deleteGozoFerias"
         label="Excluir" />
     </div>
 
-    <list-evento
+    <list-gozo-ferias
       ref="list"
       :selected="selected"/>
-    <create-evento
+    <create-gozo-ferias
       ref="modal"
       @reload="reload"/>
   </div>
 </template>
 <script>
-import CreateEvento from 'components/evento/CreateEvento'
-import ListEvento from 'components/evento/ListEvento'
-import LoadingMixin from 'common/mixins/loading.js'
-import errorMixin from 'common/mixins/error'
+import CreateGozoFerias from 'components/GozoFerias/CreateGozoFerias'
+import ListGozoFerias from 'components/GozoFerias/ListGozoFerias'
 
 export default {
-  mixins: [LoadingMixin, errorMixin],
   data () {
     return {
       selected: []
@@ -40,37 +37,33 @@ export default {
   },
 
   components: {
-    CreateEvento,
-    ListEvento
+    CreateGozoFerias,
+    ListGozoFerias
   },
 
   methods: {
-    newEvento () {
+    newGozoFerias () {
       this.$refs.modal.addItem()
     },
-    editEvento () {
+    editGozoFerias () {
       if (this.oneSelected) {
         this.$refs.modal.editItem(this.selected[0])
       }
     },
-    deleteEvento () {
+    deleteGozoFerias () {
       if (this.manySelected) {
-        this.showLoading()
-        this.$api.evento(this.$axios).delete(this.selected[0].id)
+        this.$api.gozoFerias(this.$axios).delete(this.selected[0].id)
           .then(() => {
             this.message.success('Deletado com sucesso')
             this.reload()
           })
-          .catch((error) => {
-            this.treatError(error, ': Esse evento está sendo usado')
-          })
-          .finally(() => {
-            this.hideLoading()
+          .catch(() => {
+            this.message.error('Erro ao deletar')
           })
       }
     },
     reload () {
-      this.$refs.list.findEventos()
+      this.$refs.list.findGozoFerias()
     }
   },
   computed: {

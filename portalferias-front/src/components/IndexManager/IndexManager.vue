@@ -63,7 +63,9 @@ export default {
         { label: 'Cargo', url: '/cargo' },
         { label: 'Evento', url: '/evento' },
         { label: 'Funcionário', url: '/funcionario' },
-        { label: 'Eventos do Funcionário', url: '/funcionarioevento' }
+        { label: 'Eventos do Funcionário', url: '/funcionarioevento' },
+        { label: 'Férias do Funcionário', url: '/ferias' },
+        { label: 'Gozo de férias do Funcionário', url: '/gozoferias' }
       ]
     }
   },
