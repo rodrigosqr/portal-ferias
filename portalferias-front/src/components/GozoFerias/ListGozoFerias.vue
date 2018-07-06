@@ -23,6 +23,14 @@ export default {
       tableData: [],
       columns: [
         {
+          name: 'nome',
+          required: true,
+          label: 'Funcionário',
+          align: 'left',
+          field: 'nome',
+          sortable: true
+        },
+        {
           name: 'aquisicao',
           required: true,
           label: 'Aquisição',
@@ -55,6 +63,7 @@ export default {
         .then(response => {
           response.data.forEach(el => {
             el.name = el.id
+            el.nome = el.ferias.funcionario.nome
             el.aquisicao = `${moment(el.ferias.dataInicioAquisicao).format('DD/MM/YYYY')} - ${moment(el.ferias.dataFinalAquisicao).format('DD/MM/YYYY')}`
             el.dataInicioFormatado = moment(el.dataInicioGozo).format('DD/MM/YYYY')
             el.dataFinalFormatado = moment(el.dataFinalGozo).format('DD/MM/YYYY')
